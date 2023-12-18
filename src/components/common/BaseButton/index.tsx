@@ -1,4 +1,4 @@
-import { MouseEvent, FC, MouseEventHandler, ReactElement } from 'react'
+import { FC, MouseEventHandler, ReactElement } from 'react'
 
 import { BaseLoading } from '../BaseLoading'
 
@@ -14,11 +14,9 @@ interface Props {
   isDisabled?: boolean
   backgroundColor?: string
   size?: 'small' | 'medium' | 'large'
-  onClick?: (
-    e?: MouseEvent<HTMLButtonElement, MouseEvent>,
-  ) => void | MouseEventHandler<HTMLButtonElement>
   type?: 'button' | 'submit' | 'reset' | undefined
   style?: 'primary' | 'secondary' | 'tertiary' | 'delete'
+  onClick?: MouseEventHandler<HTMLButtonElement> | undefined
 }
 
 export const BaseButton: FC<Props> = ({

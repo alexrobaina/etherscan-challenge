@@ -18,9 +18,9 @@ const queryClient = new QueryClient()
 
 async function main() {
   let appContext: AppContextProps = observable({
-    session: { email: '' },
+    session: { token: '' },
     user: {
-      name: 'alex',
+      id: '',
       email: '',
     },
   })
@@ -44,25 +44,28 @@ async function main() {
 
   try {
     const token = getCookie('token')
-    const email = getCookie('email')
 
     if (token) {
+      const { data } = await axios.get('/api/auth/login/', {
+        withCredentials: true,
+        timeout: 5000,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+
       appContext = observable({
         session: { token: token },
-        user: {
-          name: 'alex',
-          email: email,
-        },
+        user: data.user,
       })
     } else {
       appContext = observable({
-        session: { email: '' },
+        session: { token: '' },
         user: null,
       })
       throw new Error('User not signed in')
     }
   } catch (_e) {
-    console.log(3)
     ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
       <React.StrictMode>
         <QueryClientProvider client={queryClient}>

@@ -7,9 +7,9 @@ import { useLogin } from '../../../hooks/useLogin'
 import { setCookie } from '../../../utils/setCookie'
 
 export const Login: FC = () => {
-  const { isLoading, mutate, isError } = useLogin()
+  const { isLoading, mutate } = useLogin()
   const [email, setEmail] = useState({
-    value: 'alexrobaina@gmail.com',
+    value: '',
     error: false,
     helperText: '',
   })
@@ -28,8 +28,8 @@ export const Login: FC = () => {
     if (email.value === '') {
       setEmail({
         error: true,
-        helperText: 'Email is required',
         value: email.value,
+        helperText: 'Email is required',
       })
     }
 
@@ -37,8 +37,8 @@ export const Login: FC = () => {
     if (!emailRegex.test(email.value)) {
       setEmail({
         error: true,
-        helperText: 'Invalid email format',
         value: email.value,
+        helperText: 'Invalid email format',
       })
     }
     mutate({ email: email.value })

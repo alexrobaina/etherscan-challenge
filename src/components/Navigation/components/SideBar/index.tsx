@@ -42,7 +42,7 @@ export const SideBar: FC<Props> = ({
           onClick={handleMenuIsCollapsed}
           className={`${
             menuIsCollapsed ? 'min-w-[67px]' : 'min-w-[218px]'
-          }  bg-primary-300 h-full cursor-pointer
+          }  bg-primary-300 h-full cursor-pointer overflow-hidden
            rounded-md flex flex-col justify-between items-center p-2`}
         >
           <div className="w-full flex flex-col gap-2">

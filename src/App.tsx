@@ -4,7 +4,9 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 
 import Navigation from './components/Navigation'
+import { AddressPage } from './pages/AddressPage'
 import { DashboardPage } from './pages/DashboardPage'
+import { RedirectPage } from './pages/RedirectPage'
 import { AppContext, AppContextProps } from './services/AppContext'
 
 import './api/axiosInstance'
@@ -19,29 +21,22 @@ const router = createBrowserRouter([
     element: <Navigation />,
     children: [
       {
-        path: '/dashboard',
+        path: 'dashboard/',
         element: <DashboardPage />,
       },
       {
+        path: 'address/:address',
+        element: <AddressPage />,
+      },
+      {
         path: '*',
-        element: <DashboardPage />,
+        element: <RedirectPage />,
       },
     ],
   },
 ])
 
 const App: FC<Props> = observer((props) => {
-  // const [isOpenRoleModal, setOpenRoleModal] = useState<boolean>(false)
-
-  // useEffect(() => {
-  //   if (
-  //     !props?.appContext?.user?.role &&
-  //     props?.appContext?.session?.token !== ''
-  //   ) {
-  //     setOpenRoleModal(true)
-  //   }
-  // }, [props?.appContext?.user?.role])
-
   return (
     <AppContext.Provider value={props.appContext}>
       <ToastContainer
@@ -56,11 +51,6 @@ const App: FC<Props> = observer((props) => {
         position="bottom-right"
       />
       <RouterProvider router={router} />
-      {/* <UserRoleSelectorModal
-        isOpenRoleModal={isOpenRoleModal}
-        setOpenRoleModal={setOpenRoleModal}
-        user={props?.appContext?.user || null}
-      /> */}
     </AppContext.Provider>
   )
 })

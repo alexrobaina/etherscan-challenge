@@ -2,10 +2,10 @@ import { useQuery } from 'react-query'
 
 import { getAddress } from '../api/address'
 
-export const useGetAddress = (id: string | undefined) => {
+export const useGetAddress = (address: string | undefined) => {
   const { data, error, isLoading } = useQuery(
-    ['address', id],
-    () => id && getAddress(id),
+    ['address', address],
+    () => address && getAddress(address),
   )
 
   return { data, error, isLoading }

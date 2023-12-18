@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useFormik } from 'formik'
 import { FC, useContext } from 'react'
+import * as Yup from 'yup'
 
 import { BaseButton } from '../../../../components/common/BaseButton'
 import { BaseInput } from '../../../../components/common/BaseInput'
@@ -14,8 +15,8 @@ interface Props {
 }
 
 export const CreateAddressModal: FC<Props> = ({ isOpen, closeModal }) => {
+  const ethAddressRegex = /^0x[a-fA-F0-9]{40}$/
   const context = useContext(AppContext)
-  console.log(context?.user)
 
   const { mutate } = useCreateAddress()
 
@@ -23,12 +24,15 @@ export const CreateAddressModal: FC<Props> = ({ isOpen, closeModal }) => {
     initialValues: {
       address: '',
     },
-
+    validationSchema: Yup.object({
+      address: Yup.string()
+        .matches(ethAddressRegex, 'Invalid Ethereum address')
+        .required('Ethereum address is required'),
+    }),
     onSubmit: async (values) => {
-      console.log(values)
       mutate({
         ...values,
-        // id:
+        userId: context?.user?.id as string,
       })
 
       formik.resetForm()
@@ -36,14 +40,11 @@ export const CreateAddressModal: FC<Props> = ({ isOpen, closeModal }) => {
     },
   })
 
-  const {
-    values,
-    errors,
-    resetForm,
-    handleChange,
-    handleSubmit,
-    setFieldValue,
-  } = formik
+  const { values, errors, handleChange, handleSubmit } = formik
+
+  const onSubmit = () => {
+    handleSubmit()
+  }
 
   return (
     <ReactModal isOpen={isOpen} title="Add address" closeModal={closeModal}>
@@ -60,7 +61,7 @@ export const CreateAddressModal: FC<Props> = ({ isOpen, closeModal }) => {
           size="small"
           text="Create"
           style="primary"
-          onClick={handleSubmit}
+          onClick={onSubmit}
         />
       </div>
     </ReactModal>

@@ -1,14 +1,14 @@
 import { useMutation, useQueryClient } from 'react-query'
 import { toast } from 'react-toastify'
 
-import { deleteAddress } from '../api/address'
+import { update } from '../api/address'
 
-export const useDeleteAddress = () => {
+export const useUpdateAddress = () => {
   const queryClient = useQueryClient()
 
-  const { mutate, isLoading } = useMutation(deleteAddress, {
+  const { mutate, isLoading } = useMutation(update, {
     onSuccess: async () => {
-      toast.success('Address deleted successfully')
+      toast.success('Address update successfully')
       await queryClient.invalidateQueries(['address'])
     },
     onError: (error: unknown) => {

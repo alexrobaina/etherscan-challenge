@@ -1,6 +1,11 @@
 import { useNavigate } from 'react-router-dom'
 
-import { IconSearch, IconStar, IconTrash } from '../../../../assets/icons'
+import {
+  IconEdit,
+  IconSearch,
+  IconStar,
+  IconTrash,
+} from '../../../../assets/icons'
 import { BaseButton } from '../../../../components/common/BaseButton'
 import { BaseInput } from '../../../../components/common/BaseInput'
 import { BaseLoading } from '../../../../components/common/BaseLoading'
@@ -22,20 +27,19 @@ interface Props {
   isLoading: boolean
   setPage(skip: number): void
   handleCreateAddress: () => void
-  handleDelete({
-    e,
-    id,
-  }: {
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-    id: string
-  }): void
-  handleFavorite({
-    e,
-    id,
-  }: {
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-    id: string
-  }): void
+  handleDelete(
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    id: string,
+  ): void
+  handleOpenEditModal(
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    id: string,
+  ): void
+  handleFavorite(
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    id: string,
+    isFavorite: boolean,
+  ): void
   handleSearch: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
@@ -48,15 +52,14 @@ export const DashboardTable: React.FC<Props> = ({
   searchByName,
   handleSearch,
   handleFavorite,
+  handleOpenEditModal,
   handleCreateAddress,
 }) => {
   const navigate = useNavigate()
 
-  const goToAddress = (id: string) => {
-    navigate(`/address/${id}`)
+  const goToAddress = (address: string) => {
+    navigate(`/address/${address}`)
   }
-
-  if (isLoading) return <BaseLoading />
 
   return (
     <>
@@ -84,7 +87,7 @@ export const DashboardTable: React.FC<Props> = ({
           type="text"
           value={searchByName}
           placeholder="Search"
-          label="Search by name"
+          label="Search by text"
           iconLeft={<IconSearch />}
           handleChange={handleSearch}
         />
@@ -96,15 +99,22 @@ export const DashboardTable: React.FC<Props> = ({
             You don&apos;t have any address yet. Click the button below to
             create your first address.
           </h1>
-          <BaseButton
-            size="small"
-            type="button"
-            text="Create Address"
-            onClick={handleCreateAddress}
-          />
+          <div className="mt-4">
+            <BaseButton
+              size="small"
+              type="button"
+              text="Create Address"
+              onClick={handleCreateAddress}
+            />
+          </div>
         </div>
       )}
-      {data?.total !== 0 && (
+      {isLoading && (
+        <div className="flex justify-center items-center h-[150px] w-full">
+          <BaseLoading large />
+        </div>
+      )}
+      {data?.total !== 0 && !isLoading && (
         <div className="mt-8 flow-root">
           <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
@@ -126,6 +136,12 @@ export const DashboardTable: React.FC<Props> = ({
                     <th
                       scope="col"
                       className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                    >
+                      Is older
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
                     />
                   </tr>
                 </thead>
@@ -137,17 +153,31 @@ export const DashboardTable: React.FC<Props> = ({
                         name?: string
                         address: string
                         isFavorite: boolean
+                        isOlderThanOnaYear?: boolean
                       }) => (
                         <tr
                           key={address.id}
-                          onClick={() => goToAddress(address.id)}
+                          onClick={() => goToAddress(address.address)}
                           className="hover:bg-primary-200 cursor-pointer"
                         >
                           <td className="capitalize whitespace-nowrap px-3 py-5 text-sm text-gray-500">
                             <p className="truncate w-[200px]">
                               {address?.name
-                                ? truncateString(address?.name)
+                                ? address?.name
                                 : truncateString(address.address)}
+                            </p>
+                          </td>
+                          <td className="capitalize whitespace-nowrap px-3 py-5 text-sm text-gray-500">
+                            <p className="truncate w-[200px]">
+                              {address?.isOlderThanOnaYear ? (
+                                <span className="inline-flex items-center rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10">
+                                  Older than one year
+                                </span>
+                              ) : (
+                                <span className="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/10">
+                                  Less than one year
+                                </span>
+                              )}
                             </p>
                           </td>
                           <td className="capitalize whitespace-nowrap px-3 py-5 text-sm text-gray-500">
@@ -160,11 +190,26 @@ export const DashboardTable: React.FC<Props> = ({
                               <div className="flex gap-2 justify-end">
                                 <BaseButton
                                   style="tertiary"
+                                  icon={<IconEdit />}
+                                  onClick={(e) =>
+                                    handleOpenEditModal(e, address.id)
+                                  }
+                                />
+                              </div>
+                              <div className="flex gap-2 justify-end">
+                                <BaseButton
+                                  style="tertiary"
                                   className={
-                                    address.isFavorite ? 'bg-yellow-300' : ''
+                                    address.isFavorite ? 'isFavorite' : ''
                                   }
                                   icon={<IconStar />}
-                                  onClick={(e) => handleFavorite(e, address.id)}
+                                  onClick={(e) =>
+                                    handleFavorite(
+                                      e,
+                                      address.id,
+                                      address.isFavorite,
+                                    )
+                                  }
                                 />
                               </div>
                               <div className="flex gap-2 justify-end">

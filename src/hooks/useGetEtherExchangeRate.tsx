@@ -1,14 +1,14 @@
 import { useMutation, useQueryClient } from 'react-query'
 import { toast } from 'react-toastify'
 
-import { deleteAddress } from '../api/address'
+import { getEtherExcangeRate } from '../api/ether'
 
-export const useDeleteAddress = () => {
+export const useGetEtherExchangeRate = () => {
   const queryClient = useQueryClient()
 
-  const { mutate, isLoading } = useMutation(deleteAddress, {
+  const { data, mutate, isLoading, reset } = useMutation(getEtherExcangeRate, {
     onSuccess: async () => {
-      toast.success('Address deleted successfully')
+      toast.success('Get exchange successfully')
       await queryClient.invalidateQueries(['address'])
     },
     onError: (error: unknown) => {
@@ -17,5 +17,5 @@ export const useDeleteAddress = () => {
     },
   })
 
-  return { mutate, isLoading }
+  return { mutate, isLoading, data, reset }
 }

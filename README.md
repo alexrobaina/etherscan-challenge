@@ -17,13 +17,13 @@ To get a local copy up and running, follow these simple steps.
 
 1. Clone the backend repository:
 
-```sh
+```
 git clone https://github.com/alexrobaina/securitize-backend.git
 ```
 
 2. Clone the Frontend repository:
 
-```sh
+```
 git clone https://github.com/alexrobaina/securitize-challenge
 ```
 
@@ -44,7 +44,7 @@ parent-directory/
 
 2 - In docker-compose.yml file copy and paste this code:
 
-```sh
+```
 version: '3.8'
 services:
   backend:
@@ -82,14 +82,12 @@ Running the Application
 1 - Navigate to the parent directory where your docker-compose.yml is located and run the following command to build and start your containers in detached mode:
 
 ```
-sh
 docker-compose up --build -d
 ```
 
 2 - Once the containers are up, apply the Prisma migrations to set up your database schema:
 
 ```
-sh
 docker-compose exec backend npx prisma migrate deploy --schema=/usr/src/app/dist/database/prisma/schema.prisma
 ```
 
@@ -97,15 +95,6 @@ docker-compose exec backend npx prisma migrate deploy --schema=/usr/src/app/dist
 
 Backend is available at http://localhost:3011
 Frontend is available at http://localhost:3000
-
-4 - To view logs and monitor the application services, run:
-
-sh
-Copy code
-docker-compose logs -f
-If you need to rebuild the application after making changes, use:
-
-sh
 
 ```
 docker-compose up --build

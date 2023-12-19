@@ -43,6 +43,9 @@ parent-directory/
 └── docker-compose.yml
 
 2 - In docker-compose.yml file copy and paste this code:
+In the docker file you need to add the following API KEYS: 
+      - ETHERSCAN_API_KEY=
+      - API_LAYER_KEY=
 
 ```
 version: '3.8'
@@ -53,6 +56,8 @@ services:
       - '3011:3011'
     environment:
       - DATABASE_URL=postgres://securitize:1234@db:5432/securitize
+      - ETHERSCAN_API_KEY=
+      - API_LAYER_KEY=
     depends_on:
       - db
 

@@ -76,7 +76,6 @@ services:
 
 volumes:
   pgdata:
-docker-compose.yml)
 ```
 
 Running the Application

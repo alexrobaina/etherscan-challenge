@@ -10,7 +10,7 @@ interface Props {
   placeholder: string
   value?: string | number
   iconLeft?: ReactElement
-  iconRigth?: ReactElement
+  IconRight?: ReactElement
   handleChange?: (value: ChangeEvent<HTMLInputElement>) => void
 }
 
@@ -21,7 +21,7 @@ export const BaseInput: FC<Props> = (
     label,
     error,
     iconLeft,
-    iconRigth,
+    IconRight,
     isdisabled,
     placeholder,
     handleChange,
@@ -52,7 +52,7 @@ export const BaseInput: FC<Props> = (
                }  placeholder:text-neutral-500 placeholder:text-sm eight: '20px', focus:ring-primary-300 sm:text-sm sm:leading-6 pl-3`}
       />
       {iconLeft && <div className="icon absolute -mt-7 ml-2.5">{iconLeft}</div>}
-      {iconRigth && <div className="icon absolute">{iconRigth}</div>}
+      {IconRight && <div className="icon absolute">{IconRight}</div>}
       {error && (
         <div className="pointer-events-none absolute right-0 top-8 flex items-center pr-3">
           <svg

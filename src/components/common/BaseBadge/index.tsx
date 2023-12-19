@@ -5,17 +5,17 @@ interface Props {
   color?: string
   width?: string
   pointer?: boolean
-  backgroundColor: string
+  backgroundColor?: string
   iconLeft?: ReactElement
   iconRigth?: ReactElement
 }
 
 export const BaseBadge: FC<Props> = ({
   text,
-  color = 'text-primary-900',
   pointer,
   iconLeft,
   iconRigth,
+  color = 'text-primary-900',
   backgroundColor = 'bg-primary-300',
 }) => {
   return (

@@ -44,8 +44,9 @@ parent-directory/
 
 2 - In docker-compose.yml file copy and paste this code:
 In the docker file you need to add the following API KEYS: 
-      - ETHERSCAN_API_KEY=
-      - API_LAYER_KEY=
+
+- ETHERSCAN_API_KEY=
+- API_LAYER_KEY=
 
 ```
 version: '3.8'

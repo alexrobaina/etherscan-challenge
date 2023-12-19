@@ -9,7 +9,6 @@
       "cypress",
       "vitest/globals",
       "@testing-library/jest-dom",
-      "@svgx/vite-plugin-react",
       "@testing-library/react",
       "vite/client"
     ],

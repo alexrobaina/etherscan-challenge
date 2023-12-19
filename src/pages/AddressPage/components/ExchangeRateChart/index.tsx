@@ -11,7 +11,7 @@ interface Props {
       amount: number
       currency: string
       createdAt: string
-      etherExchangeRate: number
+      exchangeRate: number
     }[]
   }
 }
@@ -24,20 +24,36 @@ export const ExchangeRateChart: FC<Props> = ({ data }) => {
     return [...new Set(data.exchangeRates.map((item) => item.createdAt))]
   }, [data])
 
-  const processAmountsAndRates = (currencyType: string) => {
+  const processAmountsAndRates = (
+    currencyType: string,
+    valueType: 'amount' | 'exchangeRate',
+  ) => {
     if (!data) return []
     return dates.map((date) => {
-      const record = data?.exchangeRates.find(
+      const record = data.exchangeRates.find(
         (item) => item.createdAt === date && item.currency === currencyType,
       )
-      return record ? record.amount : 0
+
+      return record ? record[valueType as keyof typeof record] : 0
     })
   }
 
-  const usdAmounts = useMemo(() => processAmountsAndRates('USD'), [data])
-  const eurAmounts = useMemo(() => processAmountsAndRates('EUR'), [data])
-  const usdExchangeRates = useMemo(() => processAmountsAndRates('USD'), [data])
-  const eurExchangeRates = useMemo(() => processAmountsAndRates('EUR'), [data])
+  const usdAmounts = useMemo(
+    () => processAmountsAndRates('USD', 'amount'),
+    [data, dates],
+  )
+  const eurAmounts = useMemo(
+    () => processAmountsAndRates('EUR', 'amount'),
+    [data, dates],
+  )
+  const usdExchangeRates = useMemo(
+    () => processAmountsAndRates('USD', 'exchangeRate'),
+    [data, dates],
+  )
+  const eurExchangeRates = useMemo(
+    () => processAmountsAndRates('EUR', 'exchangeRate'),
+    [data, dates],
+  )
 
   const option = {
     tooltip: {

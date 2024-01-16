@@ -53,7 +53,7 @@ export const Login: FC = () => {
         <div className="bg-primary-300 shadow-2xl sm:rounded-lg p-8 sm:px-12 w-[400px]">
           <div className="sm:mx-auto sm:w-full sm:max-w-md">
             <h2 className="mb-5 text-center text-2xl font-bold leading-9 tracking-tight text-primary-900">
-              Securitize
+          Eetherscan test
             </h2>
           </div>
           <div className="mt-3">

@@ -61,7 +61,7 @@ services:
     ports:
       - '3011:3011'
     environment:
-      - DATABASE_URL=postgres://securitize:1234@db:5432/securitize
+      - DATABASE_URL=postgres://etherscan:1234@db:5432/etherscan
       - ETHERSCAN_API_KEY=
       - API_LAYER_KEY=
     depends_on:
@@ -79,9 +79,9 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
     environment:
-      POSTGRES_USER: securitize
+      POSTGRES_USER: etherscan
       POSTGRES_PASSWORD: 1234
-      POSTGRES_DB: securitize
+      POSTGRES_DB: etherscan
     ports:
       - '5432:5432'
 

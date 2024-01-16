@@ -6,9 +6,9 @@ import { QueryClient, QueryClientProvider } from 'react-query'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 
 import App from './App.tsx'
-import { Navbar } from './components/Navbar'
-import { LoginPage } from './pages/LoginPage'
-import { AppContextProps } from './services/AppContext.ts'
+import { Navbar } from './components/Navbar/index.tsx'
+import { LoginPage } from './pages/LoginPage/index.tsx'
+import { AppContextProps } from './services/AppContext.tsx'
 import { getCookie } from './utils/getCookie.ts'
 
 import './index.css'

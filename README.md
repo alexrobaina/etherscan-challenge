@@ -57,7 +57,7 @@ In the docker file you need to add the following API KEYS:
 version: '3.8'
 services:
   backend:
-    build: ./backend
+    build: ./etherscan-backend
     ports:
       - '3011:3011'
     environment:
@@ -68,7 +68,7 @@ services:
       - db
 
   frontend:
-    build: ./frontend
+    build: ./etherscan-challenge
     ports:
       - '3000:3000'
     depends_on:

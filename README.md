@@ -18,13 +18,13 @@ To get a local copy up and running, follow these simple steps.
 1. Clone the backend repository:
 
 ```
-git clone https://github.com/alexrobaina/securitize-backend.git
+git clone https://github.com/alexrobaina/etherscan-backend.git
 ```
 
 2. Clone the Frontend repository:
 
 ```
-git clone https://github.com/alexrobaina/securitize-challenge
+git clone https://github.com/alexrobaina/etherscan-challenge.git
 ```
 
 3 - Make sure both cloned repositories are in the same parent directory. Your directory structure should look like this:

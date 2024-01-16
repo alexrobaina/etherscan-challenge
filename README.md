@@ -30,7 +30,9 @@ git clone https://github.com/alexrobaina/etherscan-challenge.git
 3 - Make sure both cloned repositories are in the same parent directory. Your directory structure should look like this:
 
 parent-directory/
+
 ├── backend/
+
 └── frontend/
 
 ##Running the Application
@@ -38,8 +40,11 @@ parent-directory/
 1 - Create a docker-compose.yml
 
 parent-directory/
+
 ├── backend/
+
 └── frontend/
+
 └── docker-compose.yml
 
 2 - In docker-compose.yml file copy and paste this code:

@@ -99,7 +99,7 @@ docker-compose up --build -d
 2 - Once the containers are up, apply the Prisma migrations to set up your database schema:
 
 ```
-docker-compose exec backend npx prisma migrate deploy --schema=/usr/src/app/dist/database/prisma/schema.prisma
+docker-compose exec etherscan-backend npx prisma migrate deploy --schema=/usr/src/app/dist/database/prisma/schema.prisma
 ```
 
 3 - Access the application:

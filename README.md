@@ -15,6 +15,8 @@ To get a local copy up and running, follow these simple steps.
 
 ### Setup
 
+Before clone repositories, please create a new folder and clone both inside there.
+
 1. Clone the backend repository:
 
 ```
